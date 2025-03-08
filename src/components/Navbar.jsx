@@ -1,6 +1,14 @@
 import React from 'react'
 
 const Navbar = () => {
+
+ useEffect(() => {
+        fetch("https://yourbackend.vercel.app/api/test")
+            .then(response => response.json())
+            .then(data => console.log("Backend Response:", data))
+            .catch(error => console.error("Error:", error));
+    }, []);
+  
   return (
     <nav className='bg-slate-800 text-white'>
 
