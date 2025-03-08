@@ -7,7 +7,7 @@ import { useRef, useState, useEffect } from 'react'
 const API_BASE_URL = "https://password-manager-backend-rouge.vercel.app/";
 
 useEffect(() => {
-    fetch("https://yourbackend.vercel.app/api/test")
+    fetch("https://password-manager-backend-rouge.vercel.app/")
         .then(response => response.json())
         .then(data => console.log("Backend Response:", data))
         .catch(error => console.error("Error:", error));
