@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
   import { ToastContainer, toast } from 'react-toastify';
 import { useRef, useState, useEffect } from 'react'
 
+const API_BASE_URL = "https://password-manager-backend-rouge.vercel.app/";
+
 const Manager = () => {
   const ref = useRef()
   const passwordRef = useRef()
@@ -11,7 +13,7 @@ const Manager = () => {
   const [passwordArray, setpasswordArray] = useState([])
 
   const getPasswords = async ()=>{
-    let req= await fetch('http://localhost:3000/')
+    let req= await fetch(`${API_BASE_URL}`)
     let passwords= await req.json()
     console.log(passwords)
       setpasswordArray(passwords)
@@ -55,9 +57,9 @@ const Manager = () => {
     setpasswordArray([...passwordArray,{...form, id:uuidv4()}])
     // localStorage.setItem("passwords", JSON.stringify([...passwordArray,{...form, id:uuidv4()}]))
     // console.log(...passwordArray, form)
-    await fetch('http://localhost:3000/',{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({...form, id:uuidv4()})})
+    await fetch(`${API_BASE_URL}`,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({...form, id:uuidv4()})})
 
-   await fetch('http://localhost:3000/',{method:"DELETE",headers:{"content-type":"application/json"},body:JSON.stringify({ id:form.id})})
+   await fetch(`${API_BASE_URL}`,{method:"DELETE",headers:{"content-type":"application/json"},body:JSON.stringify({ id:form.id})})
 
     setform({site:"",username:"",password:""})
     toast('Password Saved', {
@@ -93,7 +95,7 @@ const Manager = () => {
     console.log("deleting password with id",id)
     setpasswordArray(passwordArray.filter(item=>item.id!==id))
     // localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item=>item.id!==id)))
-    let res= await fetch('http://localhost:3000/',{method:"DELETE",headers:{"content-type":"application/json"},body:JSON.stringify({ id})})
+    let res= await fetch(`${API_BASE_URL}`,{method:"DELETE",headers:{"content-type":"application/json"},body:JSON.stringify({ id})})
     toast('Password Deleted Succesfully', {
       position: "top-right",
       autoClose: 2000,
